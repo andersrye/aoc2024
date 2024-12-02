@@ -1,3 +1,4 @@
+require('./dirty-tricks')
 const fs = require('fs')
 
 module.exports = {

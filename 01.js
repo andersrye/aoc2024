@@ -1,5 +1,5 @@
-require('./dirty-tricks')
 const {getInput} = require('./utils')
+
 const parsedInput = getInput('01').split('\n')
   .map(s => s.match(/(\d+)\s+(\d+)/).slice(1, 3).map(n => parseInt(n)))
 

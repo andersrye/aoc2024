@@ -13,6 +13,9 @@ const arrayUtils = {
   },
   sum() {
     return this.reduce((acc, el) => acc + el)
+  },
+  product() {
+    return this.reduce((acc, el) => acc * el)
   }
 }
 

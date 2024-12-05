@@ -1,4 +1,4 @@
-const {getInput} = require('./utils')
+import {getInput, printSolution} from './utils.mjs'
 
 const parsedInput = getInput('04').split('\n').map(r => r.split(''))
 const XMAS = 'XMAS'
@@ -23,7 +23,7 @@ for (let i = 0; i < parsedInput.length; i++) {
   }
 }
 
-console.log('solution 1', count)
+printSolution(count)
 
 let count2 = 0
 for (let i = 0; i < parsedInput.length; i++) {
@@ -40,4 +40,4 @@ for (let i = 0; i < parsedInput.length; i++) {
   }
 }
 
-console.log('solution 2', count2)
+printSolution(count2)

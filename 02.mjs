@@ -1,4 +1,4 @@
-const {getInput} = require('./utils')
+import {getInput, printSolution} from './utils.mjs'
 
 const parsedInput = getInput('02').split('\n')
   .map(s => s.split(/\s+/).map(n => parseInt(n)))
@@ -22,7 +22,7 @@ function isSafe(array) {
 
 const {true: safe, false: unsafe} = parsedInput.groupBy(isSafe)
 
-console.log('solution 1', safe.length)
+printSolution(safe.length)
 
 function isAlsoSafe(array) {
   return array.map((_, i, arr) => arr.toSpliced(i, 1)).some(isSafe)
@@ -30,4 +30,4 @@ function isAlsoSafe(array) {
 
 const alsoSafe = unsafe.filter(isAlsoSafe)
 
-console.log('solution 2', safe.length + alsoSafe.length)
+printSolution(safe.length + alsoSafe.length)

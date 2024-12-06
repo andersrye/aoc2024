@@ -1,4 +1,4 @@
-import {getInput, printSolution} from './utils.mjs'
+import {getInput, printSolution, printTotalTime} from './utils.mjs'
 
 const [orderings, updates] = getInput('05').split('\n\n').map(p => p.split('\n'))
 const parsedOrderings = orderings.map(o => o.split('|'))
@@ -30,3 +30,4 @@ const solution2 = parsedUpdates.filter(a => !isValid(a)).map(arr => {
   })
 }).map(a => parseInt(a[Math.floor(a.length / 2)])).sum()
 printSolution(solution2)
+printTotalTime()

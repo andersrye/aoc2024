@@ -39,6 +39,9 @@ const generatorUtils = {
   },
   toSet(mapFn) {
     return new Set(mapFn ? this.map(mapFn) : this)
+  },
+  first() {
+    return this.next().value
   }
 }
 

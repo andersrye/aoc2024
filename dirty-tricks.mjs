@@ -1,6 +1,6 @@
 const arrayUtils = {
   zip(other) {
-    return this.reduce((acc, el, i) => [...acc, [el, other[i]]], [])
+    return this.reduce((acc, val, i) => [...acc, [val, other[i]]], [])
   },
   unzip() {
     return this.reduce(([listA, listB], [a, b]) => [[...listA, a], [...listB, b]], [[], []])
@@ -9,13 +9,13 @@ const arrayUtils = {
     return Object.groupBy(this, fn)
   },
   freq(keyFn = (el) => el) {
-    return this.reduce((acc, el) => (acc[keyFn(el)] = (acc[keyFn(el)] ?? 0) + 1, acc), {})
+    return this.reduce((acc, val) => (acc[keyFn(val)] = (acc[keyFn(val)] ?? 0) + 1, acc), {})
   },
   sum() {
-    return this.reduce((acc, el) => acc + el)
+    return this.reduce((acc, val) => acc + val)
   },
   product() {
-    return this.reduce((acc, el) => acc * el)
+    return this.reduce((acc, val) => acc * val)
   },
   firstNonFalsey(pred) {
     for (let i = 0; i < this.length; i++) {
@@ -25,6 +25,16 @@ const arrayUtils = {
   },
   toSet(mapFn) {
     return new Set(mapFn ? this.map(mapFn) : this)
+  },
+  * iterateMatrix() {
+    for (let i = 0; i < this.length; i++) {
+      for (let j = 0; j < this[0].length; j++) {
+        yield [this[i][j], [i, j]]
+      }
+    }
+  },
+  printMatrix() {
+    console.log(this.map(r => r.join('')).join('\n'))
   }
 }
 
@@ -33,6 +43,26 @@ const generatorUtils = {
     for (const val of this) {
       yield fn(val)
     }
+  },
+  forEach(fn) {
+    let i = 0
+    for (const val of this) {
+      fn(val, i)
+    }
+  },
+  *takeWhile(pred) {
+    for (const val of this) {
+      if(pred(val)) {
+        yield val
+      } else break
+    }
+  },
+  reduce(fn, acc) {
+    let i = 0
+    for (const val of this) {
+      acc = fn(acc, val, i++)
+    }
+    return acc
   },
   toArray(mapFn) {
     return Array.from(this, mapFn)

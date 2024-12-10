@@ -44,6 +44,11 @@ const generatorUtils = {
       yield fn(val)
     }
   },
+  * filter(fn) {
+    for (const val of this) {
+      if(fn(val)) yield val
+    }
+  },
   forEach(fn) {
     let i = 0
     for (const val of this) {

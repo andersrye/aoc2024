@@ -6,6 +6,14 @@ export function getInput(day) {
   return fs.readFileSync(path, 'utf-8')
 }
 
+export function memoize(fn) {
+  const cache = {}
+  return function (...args) {
+    const k = args.toString()
+    return cache[k] ?? (cache[k] = fn(...args))
+  }
+}
+
 export function resetTimer() {
   timer = performance.now()
 }

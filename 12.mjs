@@ -38,7 +38,7 @@ function region(pos) {
       }
     }
   }
-  return [perimeter, area, numCorners, region]
+  return [perimeter, area, numCorners]
 }
 
 const regions = map.iterateMatrix()

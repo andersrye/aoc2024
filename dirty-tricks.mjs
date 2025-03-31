@@ -8,15 +8,6 @@ const arrayUtils = {
   groupBy(fn) {
     return Object.groupBy(this, fn)
   },
-  freq(keyFn = (el) => el) {
-    return this.reduce((acc, val) => (acc[keyFn(val)] = (acc[keyFn(val)] ?? 0) + 1, acc), {})
-  },
-  sum() {
-    return this.reduce((acc, val) => acc + val)
-  },
-  product() {
-    return this.reduce((acc, val) => acc * val)
-  },
   firstNonFalsey(pred) {
     for (let i = 0; i < this.length; i++) {
       const res = pred(this[i], i, this)
@@ -46,7 +37,7 @@ const generatorUtils = {
   },
   * filter(fn) {
     for (const val of this) {
-      if(fn(val)) yield val
+      if (fn(val)) yield val
     }
   },
   forEach(fn) {
@@ -55,9 +46,9 @@ const generatorUtils = {
       fn(val, i)
     }
   },
-  *takeWhile(pred) {
+  * takeWhile(pred) {
     for (const val of this) {
-      if(pred(val)) {
+      if (pred(val)) {
         yield val
       } else break
     }
@@ -65,6 +56,10 @@ const generatorUtils = {
   reduce(fn, acc) {
     let i = 0
     for (const val of this) {
+      if(acc === undefined) {
+        acc = val
+        continue
+      }
       acc = fn(acc, val, i++)
     }
     return acc
@@ -86,7 +81,20 @@ const setUtils = {
   }
 }
 
-Object.assign(Array.prototype, arrayUtils)
-Object.assign(Set.prototype, setUtils)
-Object.assign(Object.getPrototypeOf(function* () {}).prototype, generatorUtils)
+const reducers = {
+  sum() {
+    return this.reduce((acc, val) => acc + val)
+  },
+  product() {
+    return this.reduce((acc, val) => acc * val)
+  },
+  freq(keyFn = (el) => el) {
+    return this.reduce((acc, val) => (acc[keyFn(val)] = (acc[keyFn(val)] ?? 0) + 1, acc), {})
+  },
+}
+
+const Generator = Object.getPrototypeOf(function* () {})
+Object.assign(Array.prototype, arrayUtils, reducers)
+Object.assign(Set.prototype, setUtils, reducers)
+Object.assign(Generator.prototype, generatorUtils, reducers)
 

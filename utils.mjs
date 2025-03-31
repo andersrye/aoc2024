@@ -32,5 +32,26 @@ export function printTotalTime() {
   console.log(`Total time: ${totalTime.toFixed(2)}ms (${time.toFixed(2)}ms)`)
 }
 
+export class PriorityQueue {
+  #vals = []
+
+  push(val, priority) {
+    const index = this.#vals.findIndex(([_, p]) => priority > p)
+    if(index === -1) {
+      this.#vals.push([val, priority])
+    } else {
+      this.#vals.splice(index, 0, [val, priority])
+    }
+  }
+
+  pop() {
+    return this.#vals.pop()
+  }
+  get length() {
+    return this.#vals.length
+  }
+}
+
+
 const startTime = performance.now()
 let timer = startTime

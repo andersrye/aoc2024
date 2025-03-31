@@ -11,4 +11,4 @@ printSolution(solution1)
 
 const freqs = listB.freq()
 const solution2 = listA.map(n => n * (freqs[n] ?? 0)).sum()
-printSolution(solution2)asdasd
+printSolution(solution2)asdasdasdsd
